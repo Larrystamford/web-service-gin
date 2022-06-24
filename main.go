@@ -1,23 +1,20 @@
 package main
 
 import (
-    "net/http"
-
-    "github.com/gin-gonic/gin"
-
-	"web-service-gin/controller"
+	"os"
+	"github.com/Larrystamford/web-service-gin/controller"
+	"github.com/gin-gonic/gin"
 )
 
 var (
-	controller controller.Controller = controller.NewController()
+	webController controller.Controller = controller.NewController()
 )
-
 
 func main() {
     router := gin.Default()
-    router.GET("/albums", controller.getAlbums)
-	router.GET("/albums/:id", controller.getAlbumByID)
-    router.POST("/albums", controller.postAlbums)
+    router.GET("/", webController.GetAlbums)
+	router.GET("/albums/:id", webController.GetAlbumByID)
+    router.POST("/albums", webController.PostAlbums)
 
-    router.Run("localhost:8080")
+    router.Run(":" + os.Getenv("PORT"))
 }

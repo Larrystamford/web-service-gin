@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"encoding/json"
 	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
 type Controller interface {
-	getAlbums(c *gin.Context)
-	getAlbumByID(c *gin.Context)
-	postAlbums(c *gin.Context)
+	GetAlbums(c *gin.Context)
+	GetAlbumByID(c *gin.Context)
+	PostAlbums(c *gin.Context)
 }
 
 type controller struct{}
@@ -27,17 +27,17 @@ type album struct {
 
 // albums slice to seed record album data.
 var albums = []album{
-    {ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-    {ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
-    {ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
+    {ID: "4", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
+    {ID: "5", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
+    {ID: "6", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
 // getAlbums responds with the list of all albums as JSON.
-func (*controller) getAlbums(c *gin.Context) {
+func (*controller) GetAlbums(c *gin.Context) {
     c.IndentedJSON(http.StatusOK, albums)
 }
 
-func (*controller) getAlbumByID(c *gin.Context) {
+func (*controller) GetAlbumByID(c *gin.Context) {
     id := c.Param("id")
 
     // Loop over the list of albums, looking for
@@ -52,7 +52,7 @@ func (*controller) getAlbumByID(c *gin.Context) {
 }
 
 // postAlbums adds an album from JSON received in the request body.
-func (*controller) postAlbums(c *gin.Context) {
+func (*controller) PostAlbums(c *gin.Context) {
     var newAlbum album
 
     // Call BindJSON to bind the received JSON to
